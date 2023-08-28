@@ -1,0 +1,332 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>URP延迟渲染 | 不如吃茶去</title><meta name="author" content="不如吃茶去"><meta name="copyright" content="不如吃茶去"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="学习一下URP的延迟渲染代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="URP延迟渲染">
+<meta property="og:url" content="http://example.com/2023/08/04/URP%E5%BB%B6%E8%BF%9F%E6%B8%B2%E6%9F%93/index.html">
+<meta property="og:site_name" content="不如吃茶去">
+<meta property="og:description" content="学习一下URP的延迟渲染代码">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2023/07/08/pCgPCR0.jpg">
+<meta property="article:published_time" content="2023-08-04T04:33:47.821Z">
+<meta property="article:modified_time" content="2023-08-21T17:30:11.470Z">
+<meta property="article:author" content="不如吃茶去">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2023/07/08/pCgPCR0.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/08/04/URP%E5%BB%B6%E8%BF%9F%E6%B8%B2%E6%9F%93/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'URP延迟渲染',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-22 01:30:11'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.ax1x.com/2023/07/08/pCgPCR0.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s1.ax1x.com/2023/07/08/pCcx3L9.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="不如吃茶去"><span class="site-name">不如吃茶去</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">URP延迟渲染</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-04T04:33:47.821Z" title="发表于 2023-08-04 12:33:47">2023-08-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-21T17:30:11.470Z" title="更新于 2023-08-22 01:30:11">2023-08-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="URP延迟渲染"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="URP的GBuffer布局"><a href="#URP的GBuffer布局" class="headerlink" title="URP的GBuffer布局"></a>URP的GBuffer布局</h1><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data-structure-render-targets-g-buffer.png" alt></p>
+<blockquote>
+<p>该数据结构包含以下组件。</p>
+<p><strong>Albedo (sRGB)</strong></p>
+<p>此字段包含 sRGB 格式的反照率颜色（24 位）。</p>
+<p><strong>MaterialFlags</strong></p>
+<p>此字段是包含材质标志的位字段：</p>
+<ul>
+<li>位 1 - <strong>ReceiveShadowsOff</strong>：如果设置此位，像素不会接收动态阴影。</li>
+<li>位 2 - <strong>SpecularHighlightsOff</strong>：如果设置此位，像素不会接收镜面高光。</li>
+<li>位 4 - <strong>SubtractiveMixedLighting</strong>：如果设置此位，像素将使用减法混合光照。</li>
+<li>位 8 - <strong>SpecularSetup</strong>：如果设置此位，材质将使用镜面反射工作流程。</li>
+</ul>
+<p>如需了解更多技术细节，请参阅 <code>/ShaderLibrary/UnityGBuffer.hlsl</code> 文件。</p>
+<p><strong>Specular</strong></p>
+<p>此字段包含以下值：</p>
+<ul>
+<li>SimpleLit Material：以 24 位存储的 RGB 镜面反射颜色。</li>
+<li>Lit Material with metallic workflow：以 8 位存储反射率，不使用 16 位。</li>
+<li>Lit Material with specular workflow：以 24 位存储的 RGB 镜面反射颜色。</li>
+</ul>
+<p><strong>Occlusion</strong></p>
+<p>此字段包含来自烘焙光照的烘焙遮挡值。对于实时光照，Unity 通过将烘焙遮挡值与 SSAO 值结合来计算环境光遮挡值。</p>
+<p><strong>Normal</strong></p>
+<p>此字段包含以 24 位编码的世界空间法线。有关法线编码的信息，请参阅 <a target="_blank" rel="noopener" href="https://docs.unity3d.com/cn/Packages/com.unity.render-pipelines.universal@12.1/manual/rendering/deferred-rendering-path.html#accurate-g-buffer-normals">G 缓冲区中的法线编码</a>一节。</p>
+<p><strong>Smoothness</strong></p>
+<p>此字段存储 SimpleLit 和 Lit 材质的平滑度值。</p>
+<p><strong>Emissive/GI/Lighting</strong></p>
+<p>此渲染目标包含材质发光输出和烘焙光照。Unity 在 G 缓冲区通道期间填充这一字段。在延迟着色通道期间，Unity 将光照结果存储在此渲染目标中。</p>
+<p>渲染目标格式：</p>
+<ul>
+<li><strong>B10G11R11_UFloatPack32</strong>，除非以下条件之一成立：<ul>
+<li>在 URP 资源中，已开启 <strong>Quality</strong> &gt; <strong>HDR</strong> 设置，并且目标 Player 平台不支持 HDR。</li>
+<li>在 Player Settings 中，<strong>PreserveFramebufferAlpha</strong> 设置为 true。</li>
+</ul>
+</li>
+<li><strong>R16G6B16A16_SFloat</strong>（如果 Unity 由于项目设置而无法使用 <strong>B10G11R11_UFloatPack32</strong>）。</li>
+<li>如果 Unity 无法使用列表中的其他格式之一，它将使用以下方法的返回结果：<code>SystemInfo.GetGraphicsFormat(DefaultFormat.HDR)</code>。</li>
+</ul>
+<p><strong>ShadowMask</strong></p>
+<p>当 Lighting Mode 设置为 Subtractive 或 Shadow mask 时，Unity 会将此渲染目标添加到 G 缓冲区布局。</p>
+<p>Subtractive 和 Shadow mask 模式针对前向渲染路径进行了优化，但在延迟渲染路径中的效率较低。在延迟渲染路径中，应避免使用这些模式，而是使用 Baked Indirect 模式来提高 GPU 性能。</p>
+<p><strong>Rendering Layer Mask</strong></p>
+<p>当光源层 (Light Layers) 功能已启用（在 URP 资源中选择 <strong>Advanced</strong> &gt; <strong>Light Layers</strong>）时，Unity 会将此渲染目标添加到 G 缓冲区布局。光源层功能可能会对 GPU 性能产生重大影响。有关更多信息，请参阅<a target="_blank" rel="noopener" href="https://docs.unity3d.com/cn/Packages/com.unity.render-pipelines.universal@12.1/manual/rendering/deferred-rendering-path.html#light-layers">光源层</a>。</p>
+<p><strong>Depth as Color</strong></p>
+<p>在支持的平台上启用原生渲染通道 (Native Render Pass) 时，Unity 会将此渲染目标添加到 G 缓冲区布局。Unity 会将深度作为颜色渲染到此渲染目标中。此渲染目标具有以下用途：</p>
+<ul>
+<li>在 Vulkan 设备上提高性能。</li>
+<li>让 Unity 在 Metal API 上获取深度缓冲区，这不允许在同一渲染通道内从 DepthStencil 缓冲区获取深度。</li>
+</ul>
+<p>Depth as Color 渲染目标的格式是 <code>GraphicsFormat.R32_SFloat</code>。</p>
+<p><strong>DepthStencil</strong></p>
+<p>Unity 保留此渲染目标的四个最高位来标记材质类型。另请参阅 <a target="_blank" rel="noopener" href="https://docs.unity3d.com/cn/Packages/com.unity.render-pipelines.universal@12.1/manual/urp-shaders/urp-shaderlab-pass-tags.html#universalmaterialtype">URP Pass 标签：UniversalMaterialType</a>。</p>
+<p>对于此渲染目标，Unity 根据平台选择 <code>D32F_S8</code> 格式或 <code>D24S8</code> 格式。</p>
+<p><strong>当摄像机使用 HDR 渲染时，不会为发射 + 光照缓冲区 (RT3) 创建单独的渲染目标；而是将摄像机渲染到的渲染目标（即传递给图像效果的渲染目标）用作 RT3。</strong></p>
+</blockquote>
+<p>MaterialFlags的部分，位4 指的是  materialFlags |= 4;</p>
+<h2 id="Emissive-GI-Lighting部分："><a href="#Emissive-GI-Lighting部分：" class="headerlink" title="Emissive/GI/Lighting部分："></a><strong>Emissive/GI/Lighting</strong>部分：</h2><p>这部分到底存储了怎么样的信息？</p>
+<p>下面是部分代码</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//LitGBufferPass.hlsl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  InitializeInputData部分：这里得到的bakedGI，可能是从lightMap得到的也可能是光照探针（SH）中得到的</span></span><br><span class="line"> InputData inputData;</span><br><span class="line">    InitializeInputData(unpacked, surfaceDescription, inputData);</span><br><span class="line">BRDFData brdfData;</span><br><span class="line"></span><br><span class="line">    InitializeBRDFData(surfaceData.albedo, surfaceData.metallic, surfaceData.specular, surfaceData.smoothness, surfaceData.alpha, brdfData);</span><br><span class="line"></span><br><span class="line">    Light mainLight = GetMainLight(inputData.shadowCoord, inputData.positionWS, inputData.shadowMask);</span><br><span class="line"><span class="comment">//MixRealtimeAndBakedGI:如果使用了LightMap，并且 使用Subtractive 模式。则按照SubtractDirectMainLightFromLightmap中的方法进行烘培GI混合。</span></span><br><span class="line">    MixRealtimeAndBakedGI(mainLight, inputData.normalWS, inputData.bakedGI, inputData.shadowMask);</span><br><span class="line"><span class="comment">//GlobalIllumination：混合间接光 和 主光源 的直接光</span></span><br><span class="line">	half3 color = GlobalIllumination(brdfData, inputData.bakedGI, surfaceData.occlusion, inputData.positionWS, inputData.normalWS, inputData.viewDirectionWS);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> BRDFDataToGbuffer(brdfData, inputData, surfaceData.smoothness, surfaceData.emission + color, surfaceData.occlusion);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">void MixRealtimeAndBakedGI(inout Light light, half3 normalWS, inout half3 bakedGI)</span><br><span class="line">&#123;</span><br><span class="line">#if defined(LIGHTMAP_ON) &amp;&amp; defined(_MIXED_LIGHTING_SUBTRACTIVE)</span><br><span class="line">    bakedGI = SubtractDirectMainLightFromLightmap(light, normalWS, bakedGI);</span><br><span class="line">#endif</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Backwards compatibility</span><br><span class="line">void MixRealtimeAndBakedGI(inout Light light, half3 normalWS, inout half3 bakedGI, half4 shadowMask)</span><br><span class="line">&#123;</span><br><span class="line">    MixRealtimeAndBakedGI(light, normalWS, bakedGI);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">half3 SubtractDirectMainLightFromLightmap(Light mainLight, half3 normalWS, half3 bakedGI)</span><br><span class="line">&#123;</span><br><span class="line">    // Let&#x27;s try to make realtime shadows work on a surface, which already contains</span><br><span class="line">    // baked lighting and shadowing from the main sun light.</span><br><span class="line">    // Summary:</span><br><span class="line">    // 1) Calculate possible value in the shadow by subtracting estimated light contribution from the places occluded by realtime shadow:</span><br><span class="line">    //      a) preserves other baked lights and light bounces</span><br><span class="line">    //      b) eliminates shadows on the geometry facing away from the light</span><br><span class="line">    // 2) Clamp against user defined ShadowColor.</span><br><span class="line">    // 3) Pick original lightmap value, if it is the darkest one.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // 1) Gives good estimate of illumination as if light would&#x27;ve been shadowed during the bake.</span><br><span class="line">    // We only subtract the main direction light. This is accounted in the contribution term below.</span><br><span class="line">    half shadowStrength = GetMainLightShadowStrength();</span><br><span class="line">    half contributionTerm = saturate(dot(mainLight.direction, normalWS));</span><br><span class="line">    half3 lambert = mainLight.color * contributionTerm;</span><br><span class="line">    half3 estimatedLightContributionMaskedByInverseOfShadow = lambert * (1.0 - mainLight.shadowAttenuation);</span><br><span class="line">    half3 subtractedLightmap = bakedGI - estimatedLightContributionMaskedByInverseOfShadow;</span><br><span class="line"></span><br><span class="line">    // 2) Allows user to define overall ambient of the scene and control situation when realtime shadow becomes too dark.</span><br><span class="line">    half3 realtimeShadow = max(subtractedLightmap, _SubtractiveShadowColor.xyz);</span><br><span class="line">    realtimeShadow = lerp(bakedGI, realtimeShadow, shadowStrength);</span><br><span class="line"></span><br><span class="line">    // 3) Pick darkest color</span><br><span class="line">    return min(bakedGI, realtimeShadow);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">half3 GlobalIllumination(BRDFData brdfData, BRDFData brdfDataClearCoat, float clearCoatMask,</span><br><span class="line">    half3 bakedGI, half occlusion, float3 positionWS,</span><br><span class="line">    half3 normalWS, half3 viewDirectionWS)</span><br><span class="line">&#123;</span><br><span class="line">    half3 reflectVector = reflect(-viewDirectionWS, normalWS);</span><br><span class="line">    half NoV = saturate(dot(normalWS, viewDirectionWS));</span><br><span class="line">    half fresnelTerm = Pow4(1.0 - NoV);</span><br><span class="line"></span><br><span class="line">    half3 indirectDiffuse = bakedGI;</span><br><span class="line">    half3 indirectSpecular = GlossyEnvironmentReflection(reflectVector, positionWS, brdfData.perceptualRoughness, 1.0h);</span><br><span class="line"></span><br><span class="line">    half3 color = EnvironmentBRDF(brdfData, indirectDiffuse, indirectSpecular, fresnelTerm);</span><br><span class="line"></span><br><span class="line">    if (IsOnlyAOLightingFeatureEnabled())</span><br><span class="line">    &#123;</span><br><span class="line">        color = half3(1,1,1); // &quot;Base white&quot; for AO debug lighting mode</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">#if defined(_CLEARCOAT) || defined(_CLEARCOATMAP)</span><br><span class="line">    half3 coatIndirectSpecular = GlossyEnvironmentReflection(reflectVector, positionWS, brdfDataClearCoat.perceptualRoughness, 1.0h);</span><br><span class="line">    // TODO: &quot;grazing term&quot; causes problems on full roughness</span><br><span class="line">    half3 coatColor = EnvironmentBRDFClearCoat(brdfDataClearCoat, clearCoatMask, coatIndirectSpecular, fresnelTerm);</span><br><span class="line"></span><br><span class="line">    // Blend with base layer using khronos glTF recommended way using NoV</span><br><span class="line">    // Smooth surface &amp; &quot;ambiguous&quot; lighting</span><br><span class="line">    // NOTE: fresnelTerm (above) is pow4 instead of pow5, but should be ok as blend weight.</span><br><span class="line">    half coatFresnel = kDielectricSpec.x + kDielectricSpec.a * fresnelTerm;</span><br><span class="line">    return (color * (1.0 - coatFresnel * clearCoatMask) + coatColor) * occlusion;</span><br><span class="line">#else</span><br><span class="line">    return color * occlusion;</span><br><span class="line">#endif</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Backwards compatiblity</span><br><span class="line">half3 GlobalIllumination(BRDFData brdfData, half3 bakedGI, half occlusion, float3 positionWS, half3 normalWS, half3 viewDirectionWS)</span><br><span class="line">&#123;</span><br><span class="line">    const BRDFData noClearCoat = (BRDFData)0;</span><br><span class="line">    return GlobalIllumination(brdfData, noClearCoat, 0.0, bakedGI, occlusion, positionWS, normalWS, viewDirectionWS);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从结果看，Emissive/GI/Lighting 存储的就是烘培GI（LightMap 或者 SH）经过PBR公式计算之后输出的radiance。额外加上了自发光的radiance</p>
+<p>另外，如果进行了光照烘培，并且使用了Subtractive模式，还会进行烘培阴影和实时阴影的混合。</p>
+<h3 id="Subtractive-模式下的GI混合"><a href="#Subtractive-模式下的GI混合" class="headerlink" title="Subtractive 模式下的GI混合"></a>Subtractive 模式下的GI混合</h3><p>Subtractive下的光照混合是个值得了解的事情。</p>
+<p>Subtractive模式下，对于Mixed模式下的主光源来说，静态物体的直接光和间接光以及阴影都已经烘培到LightMap上，并且动态物体仍然受到实时光影响，动态物体的影子还是会投射到静态物体上。这个时候，就难免出现一种情况：一个静态物体既受到实时阴影，又有自身的烘培阴影。我们需要将两者进行混合。</p>
+<p>代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">half3 SubtractDirectMainLightFromLightmap(Light mainLight, half3 normalWS, half3 bakedGI)</span><br><span class="line">&#123;</span><br><span class="line">    // Let&#x27;s try to make realtime shadows work on a surface, which already contains</span><br><span class="line">    // baked lighting and shadowing from the main sun light.</span><br><span class="line">    // Summary:</span><br><span class="line">    // 1) Calculate possible value in the shadow by subtracting estimated light contribution from the places occluded by realtime shadow:</span><br><span class="line">    //      a) preserves other baked lights and light bounces</span><br><span class="line">    //      b) eliminates shadows on the geometry facing away from the light</span><br><span class="line">    // 2) Clamp against user defined ShadowColor.</span><br><span class="line">    // 3) Pick original lightmap value, if it is the darkest one.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // 1) Gives good estimate of illumination as if light would&#x27;ve been shadowed during the bake.</span><br><span class="line">    // We only subtract the main direction light. This is accounted in the contribution term below.</span><br><span class="line">    half shadowStrength = GetMainLightShadowStrength();</span><br><span class="line">    half contributionTerm = saturate(dot(mainLight.direction, normalWS));</span><br><span class="line">    half3 lambert = mainLight.color * contributionTerm;</span><br><span class="line">    half3 estimatedLightContributionMaskedByInverseOfShadow = lambert * (1.0 - mainLight.shadowAttenuation);</span><br><span class="line">    half3 subtractedLightmap = bakedGI - estimatedLightContributionMaskedByInverseOfShadow;</span><br><span class="line"></span><br><span class="line">    // 2) Allows user to define overall ambient of the scene and control situation when realtime shadow becomes too dark.</span><br><span class="line">    half3 realtimeShadow = max(subtractedLightmap, _SubtractiveShadowColor.xyz);</span><br><span class="line">    realtimeShadow = lerp(bakedGI, realtimeShadow, shadowStrength);</span><br><span class="line"></span><br><span class="line">    // 3) Pick darkest color</span><br><span class="line">    return min(bakedGI, realtimeShadow);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实时阴影的颜色计算基于BakedGI， 在 自定义的阴影颜色 和 subtractedLightmap 中取大值</p>
+<p>并且实时阴影的颜色 可以用强度值 控制</p>
+<p>得到了实时阴影之后，在实时阴影和烘培结果 中取最小值。</p>
+<p>我们可以通过调整实时阴影颜色让混合结果尽可能的自然。</p>
+<h1 id="Rendering"><a href="#Rendering" class="headerlink" title="Rendering"></a>Rendering</h1><h2 id="标记光照模型类型"><a href="#标记光照模型类型" class="headerlink" title="标记光照模型类型"></a>标记光照模型类型</h2><p>unity在GBuffer阶段 会给不同的光照模型设置不同的模板值。</p>
+<p>urp的GBuffer Pass 中，使用了 RenderStateBlock 列表和 tag列表 来控制不同光照模型的渲染状态(主要是设置模板测试)，而不是在shader的GBuffer pass 中设置渲染状态。</p>
+<p>而且urp中自定义了一个新的tag类型叫做“UniversalMaterialType”，这个tag在标记光照模型的模板值的时候被使用。</p>
+<h2 id="标记受光影响像素"><a href="#标记受光影响像素" class="headerlink" title="标记受光影响像素"></a>标记受光影响像素</h2><p>所有的光源都会渲染为几何体，例如，点光源为球体，聚光灯为锥体等。只有在几何体内部的像素才会受到光源影响。使用模板测试来实现。</p>
+<p>每一盏灯光，都会 遍历 所有 准备在延迟渲染中渲染结果的光照模型。计算光照结果。如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> //urp的延迟渲染中，lit和simpleLit两种光照模型会在延迟渲染中被渲染结果。</span><br><span class="line"> //每一盏灯光都会分别为这两种光照模型去渲染一次光源几何体。</span><br><span class="line">cmd.DrawMesh(m_FullscreenMesh, Matrix4x4.identity, m_StencilDeferredMaterial, 0, m_StencilDeferredPasses[(int)StencilDeferredPasses.DirectionalLit]);</span><br><span class="line">cmd.DrawMesh(m_FullscreenMesh, Matrix4x4.identity, m_StencilDeferredMaterial, 0, m_StencilDeferredPasses[(int)StencilDeferredPasses.DirectionalSimpleLit]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>平行光的影响范围包含整个屏幕，点光源和聚光灯则有一定的作用范围。所以这两种光源渲染结果之前需要确定作用范围，也就是哪些像素被光照亮了。</p>
+<p>如何确定像素是在光源几何体之内？</p>
+<p>画了个草图，可以看出，只要场景深度大于光源几何体正面深度，小于光源几何体背面深度，就可以确定是在光源范围之内。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="3.jpg" alt></p>
+<p>回到unity中，点光源和聚光灯会先执行Stencil Volume Pass，这个Pass设定 几何体 剔除背面，Ztest 规则为小于等于，如果有像素的深度测试没有通过，则会将模板值的第5位求反。场景默认模板值为0，Lit和sampleLit两种光照模型的物体分别写入了模板值0010 0000和0100 0000，也就是第6和第7位。反转第5位之后，第5位为1.</p>
+<p>之后，只要检测像素满足以下两个条件：1，光源几何体 背面深度大于场景深度。2，像素模板值中，第5位为1（表示像素受光照影响），光照模型对应的位也为1（表示当前像素使用的是当前pass的光照模型）<br>符合条件之后，则会进行光照渲染，并且把模板值第5位归0（下一个灯光渲染的时候会重新计算）</p>
+<h2 id="使用GBuffer-计算光照结果"><a href="#使用GBuffer-计算光照结果" class="headerlink" title="使用GBuffer 计算光照结果"></a>使用GBuffer 计算光照结果</h2><p>参考  StencilDeferred.shader</p>
+<p>首先如果当前像素渲染的物体和灯光都是static的，那么就没有实时光结果需要渲染</p>
+<h2 id="ShadowMask-模式下-ShadowMask-GBuffer的使用"><a href="#ShadowMask-模式下-ShadowMask-GBuffer的使用" class="headerlink" title="ShadowMask 模式下 ShadowMask GBuffer的使用"></a>ShadowMask 模式下 ShadowMask GBuffer的使用</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">half <span class="title">MainLightShadow</span>(<span class="params">float4 shadowCoord, float3 positionWS, half4 shadowMask, half4 occlusionProbeChannels</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    half realtimeShadow = MainLightRealtimeShadow(shadowCoord);</span><br><span class="line"></span><br><span class="line"><span class="meta">#ifdef CALCULATE_BAKED_SHADOWS</span></span><br><span class="line">    half bakedShadow = BakedShadow(shadowMask, occlusionProbeChannels);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    half bakedShadow = half(<span class="number">1.0</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#ifdef MAIN_LIGHT_CALCULATE_SHADOWS</span></span><br><span class="line">    half shadowFade = GetMainLightShadowFade(positionWS);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span>//如果主光源不投射阴影，最后的结果就完全是 bakedShadow</span></span><br><span class="line">    half shadowFade = half(<span class="number">1.0</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> MixRealtimeAndBakedShadows(realtimeShadow, bakedShadow, shadowFade);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">half <span class="title">BakedShadow</span>(<span class="params">half4 shadowMask, half4 occlusionProbeChannels</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Here occlusionProbeChannels used as mask selector to select shadows in shadowMask</span></span><br><span class="line">    <span class="comment">// If occlusionProbeChannels all components are zero we use default baked shadow value 1.0</span></span><br><span class="line">    <span class="comment">// This code is optimized for mobile platforms:</span></span><br><span class="line">    <span class="comment">// half bakedShadow = any(occlusionProbeChannels) ? dot(shadowMask, occlusionProbeChannels) : 1.0h;</span></span><br><span class="line">    half bakedShadow = half(<span class="number">1.0</span>) + dot(shadowMask - half(<span class="number">1.0</span>), occlusionProbeChannels);</span><br><span class="line">    <span class="keyword">return</span> bakedShadow;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示基于像素与摄像机之间的距离的阴影淡出效果。</span></span><br><span class="line"><span class="comment">//当像素距离摄像机越远时，这个淡出效果会更明显，导致远离摄像机的像素的阴影变得更淡。这可以用来模拟现实世界中，远离观察者的物体的阴影边缘变得更模糊的效果。</span></span><br><span class="line"><span class="function">half <span class="title">GetMainLightShadowFade</span>(<span class="params">float3 positionWS</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    float3 camToPixel = positionWS - _WorldSpaceCameraPos;</span><br><span class="line">    <span class="built_in">float</span> distanceCamToPixel2 = dot(camToPixel, camToPixel);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">float</span> fade = saturate(distanceCamToPixel2 * <span class="built_in">float</span>(_MainLightShadowParams.z) + <span class="built_in">float</span>(_MainLightShadowParams.w));</span><br><span class="line">    <span class="keyword">return</span> half(fade);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">half <span class="title">MixRealtimeAndBakedShadows</span>(<span class="params">half realtimeShadow, half bakedShadow, half shadowFade</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> defined(LIGHTMAP_SHADOW_MIXING)//如果使用了混合阴影，则在bakedShadow和realtimeShadow中取最小值</span></span><br><span class="line">    <span class="keyword">return</span> min(lerp(realtimeShadow, <span class="number">1</span>, shadowFade), bakedShadow);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="keyword">return</span> lerp(realtimeShadow, bakedShadow, shadowFade);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function">half <span class="title">GetMainLightShadowFade</span>(<span class="params">float3 positionWS</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    float3 camToPixel = positionWS - _WorldSpaceCameraPos;</span><br><span class="line">    <span class="built_in">float</span> distanceCamToPixel2 = dot(camToPixel, camToPixel);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">float</span> fade = saturate(distanceCamToPixel2 * <span class="built_in">float</span>(_MainLightShadowParams.z) + <span class="built_in">float</span>(_MainLightShadowParams.w));</span><br><span class="line">    <span class="keyword">return</span> half(fade);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="TODO-URP-Lit-与-sample-Lit-的区别"><a href="#TODO-URP-Lit-与-sample-Lit-的区别" class="headerlink" title="TODO URP Lit 与 sample Lit 的区别"></a>TODO URP Lit 与 sample Lit 的区别</h2><h1 id="相关代码文件"><a href="#相关代码文件" class="headerlink" title="相关代码文件"></a>相关代码文件</h1><ul>
+<li><p>负责处理延迟渲染路径的主类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.unity.render-pipelines.universal\Runtime\DeferredLights.cs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>G 缓冲区通道的 ScriptableRenderPass：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.unity.render-pipelines.universal\Runtime\Passes\GBufferPass.cs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>延迟着色通道的 ScriptableRenderPass：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.unity.render-pipelines.universal\Runtime\Passes\DeferredPass.cs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用于延迟着色的着色器资源：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.unity.render-pipelines.universal\Shaders\Utils\StencilDeferred.shader</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>延迟着色的实用函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.unity.render-pipelines.universal\Shaders\Utils\Deferred.hlsl</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用于存储以及从 G 缓冲区加载材质属性的实用函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.unity.render-pipelines.universal\Shaders\Utils\UnityGBuffer.hlsl</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">不如吃茶去</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/08/04/URP%E5%BB%B6%E8%BF%9F%E6%B8%B2%E6%9F%93/">http://example.com/2023/08/04/URP%E5%BB%B6%E8%BF%9F%E6%B8%B2%E6%9F%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">不如吃茶去</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://s1.ax1x.com/2023/07/08/pCgPCR0.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://s1.ax1x.com/2023/07/08/pCgiqHg.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.ax1x.com/2023/07/08/pCgiqHg.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://s1.ax1x.com/2023/07/08/pCgiOEQ.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.ax1x.com/2023/07/08/pCgiOEQ.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/07/%E9%80%8F%E8%A7%86%E6%8F%92%E5%80%BC%E4%BF%AE%E6%AD%A3/" title="透视插值修正"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">透视插值修正</div></div></a></div><div class="next-post pull-right"><a href="/2023/07/21/DXBC%E9%80%86%E5%90%91%E8%A7%A3%E8%AF%BB/" title="备忘录：DXBC逆向"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">备忘录：DXBC逆向</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.ax1x.com/2023/07/08/pCgPCR0.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">不如吃茶去</div><div class="author-info__description">但行好事莫问前程</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ykl-chinese"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">微信:ykl19980830</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#URP%E7%9A%84GBuffer%E5%B8%83%E5%B1%80"><span class="toc-number">1.</span> <span class="toc-text">URP的GBuffer布局</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Emissive-GI-Lighting%E9%83%A8%E5%88%86%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">Emissive&#x2F;GI&#x2F;Lighting部分：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Subtractive-%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84GI%E6%B7%B7%E5%90%88"><span class="toc-number">1.1.1.</span> <span class="toc-text">Subtractive 模式下的GI混合</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Rendering"><span class="toc-number">2.</span> <span class="toc-text">Rendering</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E8%AE%B0%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.1.</span> <span class="toc-text">标记光照模型类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E8%AE%B0%E5%8F%97%E5%85%89%E5%BD%B1%E5%93%8D%E5%83%8F%E7%B4%A0"><span class="toc-number">2.2.</span> <span class="toc-text">标记受光影响像素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8GBuffer-%E8%AE%A1%E7%AE%97%E5%85%89%E7%85%A7%E7%BB%93%E6%9E%9C"><span class="toc-number">2.3.</span> <span class="toc-text">使用GBuffer 计算光照结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ShadowMask-%E6%A8%A1%E5%BC%8F%E4%B8%8B-ShadowMask-GBuffer%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.4.</span> <span class="toc-text">ShadowMask 模式下 ShadowMask GBuffer的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TODO-URP-Lit-%E4%B8%8E-sample-Lit-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.5.</span> <span class="toc-text">TODO URP Lit 与 sample Lit 的区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">相关代码文件</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/08/24/%E5%B0%8F%E7%BB%83%E4%B9%A0%EF%BC%9A%E4%B8%80%E4%B8%AA%E5%83%8F%E7%B4%A0%E9%A3%8E%E6%A0%BC%E7%9A%84%E6%BA%B6%E8%A7%A3/" title="小练习:一个像素风格的溶解"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://ykl1998.oss-cn-hangzhou.aliyuncs.com/img/%E5%83%8F%E7%B4%A0%E6%BA%B6%E8%A7%A3.gif" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="小练习:一个像素风格的溶解"/></a><div class="content"><a class="title" href="/2023/08/24/%E5%B0%8F%E7%BB%83%E4%B9%A0%EF%BC%9A%E4%B8%80%E4%B8%AA%E5%83%8F%E7%B4%A0%E9%A3%8E%E6%A0%BC%E7%9A%84%E6%BA%B6%E8%A7%A3/" title="小练习:一个像素风格的溶解">小练习:一个像素风格的溶解</a><time datetime="2023-08-23T23:43:05.050Z" title="发表于 2023-08-24 07:43:05">2023-08-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/22/Bloom2/" title="备忘录：Bloom的实现与优化">备忘录：Bloom的实现与优化</a><time datetime="2023-08-22T02:33:57.912Z" title="发表于 2023-08-22 10:33:57">2023-08-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/22/%E5%9F%BA%E4%BA%8ESRP%E5%A4%8D%E5%88%BB%E3%80%8A%E5%8A%A8%E7%89%A9%E6%B4%BE%E5%AF%B9%E3%80%8B/" title="基于SRP复刻《动物派对》"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://ykl1998.oss-cn-hangzhou.aliyuncs.com/img/Snipaste_2023-08-24_06-32-42.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于SRP复刻《动物派对》"/></a><div class="content"><a class="title" href="/2023/08/22/%E5%9F%BA%E4%BA%8ESRP%E5%A4%8D%E5%88%BB%E3%80%8A%E5%8A%A8%E7%89%A9%E6%B4%BE%E5%AF%B9%E3%80%8B/" title="基于SRP复刻《动物派对》">基于SRP复刻《动物派对》</a><time datetime="2023-08-21T19:41:04.664Z" title="发表于 2023-08-22 03:41:04">2023-08-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/22/%E5%A4%87%E5%BF%98%E5%BD%95%EF%BC%9ACook-Torrance%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC%E4%B8%8E%E5%BC%95%E6%93%8E%E4%BB%A3%E7%A0%81%E4%BD%8D%E7%BD%AE/" title="备忘录：Cook-Torrance公式推导与引擎代码位置">备忘录：Cook-Torrance公式推导与引擎代码位置</a><time datetime="2023-08-21T19:02:22.628Z" title="发表于 2023-08-22 03:02:22">2023-08-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/15/%E8%BF%98%E5%8E%9FView%E7%A9%BA%E9%97%B4%E5%9D%90%E6%A0%87%E7%9A%84%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC/" title="还原View空间坐标的公式推导">还原View空间坐标的公式推导</a><time datetime="2023-08-15T11:24:11.710Z" title="发表于 2023-08-15 19:24:11">2023-08-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 不如吃茶去</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
